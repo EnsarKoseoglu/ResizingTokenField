@@ -21,7 +21,7 @@ private class DeleteDetectingTextField: UITextField {
     }
 }
 
-class TextFieldCell: UICollectionViewCell {
+public class TextFieldCell: UICollectionViewCell {
     
     /// Implement to handle text field changes.
     var onTextFieldEditingChanged: ((String?) -> Void)?
@@ -55,7 +55,7 @@ class TextFieldCell: UICollectionViewCell {
         }
     }
     
-    override func awakeFromNib() {
+  public override func awakeFromNib() {
         super.awakeFromNib()
         
         textField.addTarget(self, action: #selector(textFieldEditingChanged), for: .editingChanged)

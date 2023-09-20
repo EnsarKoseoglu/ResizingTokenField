@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ResizingTokenField: UIView, UICollectionViewDataSource, UICollectionViewDelegate, ResizingTokenFieldFlowLayoutDelegate {
+public class ResizingTokenField: UIView, UICollectionViewDataSource, UICollectionViewDelegate, ResizingTokenFieldFlowLayoutDelegate {
     
     /// List of currently displayed tokens.
     var tokens: [ResizingTokenFieldToken] { return viewModel.tokens }
@@ -214,12 +214,12 @@ class ResizingTokenField: UIView, UICollectionViewDataSource, UICollectionViewDe
     
     // MARK: - First responder
     
-    override func becomeFirstResponder() -> Bool {
+  public override func becomeFirstResponder() -> Bool {
         super.becomeFirstResponder()
         return textField?.becomeFirstResponder() == true
     }
     
-    override func resignFirstResponder() -> Bool {
+  public override func resignFirstResponder() -> Bool {
         super.resignFirstResponder()
         if let textField = self.textField, textField.isFirstResponder {
             return textField.resignFirstResponder()
@@ -358,12 +358,12 @@ class ResizingTokenField: UIView, UICollectionViewDataSource, UICollectionViewDe
     
     // MARK: - UICollectionViewDataSource
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+  public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         isCollectionViewLoaded = true
         return viewModel.numberOfItems
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+  public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: viewModel.identifierForCell(atIndexPath: indexPath),
                                                       for: indexPath)
         switch cell {
@@ -459,7 +459,7 @@ class ResizingTokenField: UIView, UICollectionViewDataSource, UICollectionViewDe
     
     // MARK: - UICollectionViewDelegate
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+  public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let cell = collectionView.cellForItem(at: indexPath) as? ResizingTokenFieldTokenCell {
             _ = cell.becomeFirstResponder()
         }
@@ -467,7 +467,7 @@ class ResizingTokenField: UIView, UICollectionViewDataSource, UICollectionViewDe
     
     // MARK: - UICollectionViewDelegateFlowLayout
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+  public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let identifier = viewModel.identifierForCell(atIndexPath: indexPath)
         switch identifier {
         case Constants.Identifier.labelCell:
@@ -493,7 +493,7 @@ class ResizingTokenField: UIView, UICollectionViewDataSource, UICollectionViewDe
     
     // MARK: - ResizingTokenFieldFlowLayoutDelegate
     
-    func collectionView(_ collectionView: UICollectionView, layout: ResizingTokenFieldFlowLayout, heightDidChange newHeight: CGFloat) {
+  public func collectionView(_ collectionView: UICollectionView, layout: ResizingTokenFieldFlowLayout, heightDidChange newHeight: CGFloat) {
         guard didSetInitialHeight else {
             didSetInitialHeight = true
             heightConstraint?.constant = newHeight
@@ -505,7 +505,7 @@ class ResizingTokenField: UIView, UICollectionViewDataSource, UICollectionViewDe
         delegate?.resizingTokenField(self, didChangeHeight: newHeight)
     }
     
-    func lastCellIndexPath(in collectionView: UICollectionView, layout: ResizingTokenFieldFlowLayout) -> IndexPath {
+  public func lastCellIndexPath(in collectionView: UICollectionView, layout: ResizingTokenFieldFlowLayout) -> IndexPath {
         return viewModel.textFieldCellIndexPath
     }
 

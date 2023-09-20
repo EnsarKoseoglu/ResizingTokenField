@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LabelCell: UICollectionViewCell {
+public class LabelCell: UICollectionViewCell {
     
     let label: UILabel = UILabel(frame: .zero)
     
