@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol DefaultTokenCellConfiguration {
+public protocol DefaultTokenCellConfiguration {
     func cornerRadius(forSelected isSelected: Bool) -> CGFloat
     func borderWidth(forSelected isSelected: Bool) -> CGFloat
     func borderColor(forSelected isSelected: Bool) -> CGColor
@@ -16,7 +16,7 @@ protocol DefaultTokenCellConfiguration {
     func backgroundColor(forSelected isSelected: Bool) -> UIColor
 }
 
-class DefaultTokenCell: ResizingTokenFieldTokenCell {
+public class DefaultTokenCell: ResizingTokenFieldTokenCell {
     
     static func width(forToken token: ResizingTokenFieldToken, font: UIFont) -> CGFloat {
         let titleWidth = token.title.size(withAttributes: [.font: font]).width
@@ -63,7 +63,7 @@ class DefaultTokenCell: ResizingTokenFieldTokenCell {
         titleLabel.text = token.title
     }
     
-    override var isSelected: Bool {
+  public override var isSelected: Bool {
         didSet { configureWithCurrentConfiguration() }
     }
     

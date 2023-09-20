@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol ResizingTokenFieldToken {
+public protocol ResizingTokenFieldToken {
     
     /// Title displayed on the token.
     var title: String { get }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol ResizingTokenFieldFlowLayoutDelegate: UICollectionViewDelegateFlowLayout {
+public protocol ResizingTokenFieldFlowLayoutDelegate: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout: ResizingTokenFieldFlowLayout, heightDidChange newHeight: CGFloat)
     func lastCellIndexPath(in collectionView: UICollectionView, layout: ResizingTokenFieldFlowLayout) -> IndexPath
 }
@@ -19,8 +19,8 @@ protocol ResizingTokenFieldFlowLayoutDelegate: UICollectionViewDelegateFlowLayou
 ///     - https://stackoverflow.com/questions/22539979/left-align-cells-in-uicollectionview/
 ///     - https://stackoverflow.com/questions/13017257/how-do-you-determine-spacing-between-cells-in-uicollectionview-flowlayout/
 /// - stretches the last cell to the end of its row
-class ResizingTokenFieldFlowLayout: UICollectionViewFlowLayout {
-    
+public class ResizingTokenFieldFlowLayout: UICollectionViewFlowLayout {
+
     private var delegate: ResizingTokenFieldFlowLayoutDelegate? {
         return collectionView?.delegate as? ResizingTokenFieldFlowLayoutDelegate
     }
@@ -29,7 +29,7 @@ class ResizingTokenFieldFlowLayout: UICollectionViewFlowLayout {
     
     private var oldContentHeight: CGFloat = 0
     
-    override var collectionViewContentSize: CGSize {
+  public override var collectionViewContentSize: CGSize {
         let contentSize = super.collectionViewContentSize
         
         if oldContentHeight != contentSize.height {
@@ -44,14 +44,14 @@ class ResizingTokenFieldFlowLayout: UICollectionViewFlowLayout {
     
     // MARK: - Layout
     
-    override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+  public override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         let layoutAttributes: [UICollectionViewLayoutAttributes]? = super.layoutAttributesForElements(in: rect)
         
         // Map attributes to return value of layoutAttributesForItem(at:), which left aligns them.
         return layoutAttributes?.compactMap({ $0.representedElementKind == nil ? layoutAttributesForItem(at: $0.indexPath) : $0 })
     }
     
-    override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+  public override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
         guard let collectionView = self.collectionView else { return nil }
         guard let copiedAttributes = super.layoutAttributesForItem(at: indexPath)?.copy() as? UICollectionViewLayoutAttributes else { return nil }
         

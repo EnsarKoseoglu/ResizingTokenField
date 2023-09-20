@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ResizingTokenFieldTokenCell: UICollectionViewCell, UIKeyInput {
+public class ResizingTokenFieldTokenCell: UICollectionViewCell, UIKeyInput {
     
     /// Configure item for the provided token and font.
     func populate(withToken token: ResizingTokenFieldToken) {
@@ -23,15 +23,15 @@ class ResizingTokenFieldTokenCell: UICollectionViewCell, UIKeyInput {
     
     private(set) var isBecomingFirstResponder: Bool = false
     
-    override var canBecomeFirstResponder: Bool {
+  public override var canBecomeFirstResponder: Bool {
         return true
     }
     
-    override var canResignFirstResponder: Bool {
+  public override var canResignFirstResponder: Bool {
         return true
     }
     
-    override func becomeFirstResponder() -> Bool {
+  public override func becomeFirstResponder() -> Bool {
         isBecomingFirstResponder = true
         super.becomeFirstResponder()
         isBecomingFirstResponder = false
@@ -39,7 +39,7 @@ class ResizingTokenFieldTokenCell: UICollectionViewCell, UIKeyInput {
         return true
     }
     
-    override func resignFirstResponder() -> Bool {
+  public override func resignFirstResponder() -> Bool {
         super.resignFirstResponder()
         isBecomingFirstResponder = false
         isSelected = false
@@ -48,15 +48,15 @@ class ResizingTokenFieldTokenCell: UICollectionViewCell, UIKeyInput {
     
     // MARK: - UIKeyInput
     
-    var hasText: Bool {
+  public var hasText: Bool {
         return false
     }
     
-    func insertText(_ text: String) {
+  public func insertText(_ text: String) {
         onRemove?(text)
     }
     
-    func deleteBackward() {
+  public func deleteBackward() {
         onRemove?(nil)
     }
     
