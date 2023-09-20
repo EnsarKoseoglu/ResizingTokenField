@@ -31,7 +31,7 @@ public class ResizingTokenField: UIView, UICollectionViewDataSource, UICollectio
     }
     
     /// Spacing between items.
-    var itemSpacing: CGFloat = Constants.Default.itemSpacing {
+  public var itemSpacing: CGFloat = Constants.Default.itemSpacing {
         didSet {
             (collectionView.collectionViewLayout as? ResizingTokenFieldFlowLayout)?.minimumInteritemSpacing = itemSpacing
         }
@@ -121,14 +121,14 @@ public class ResizingTokenField: UIView, UICollectionViewDataSource, UICollectio
 
     /// If `true` tokens will be expanded using animation.
   public var shouldExpandTokensAnimated: Bool = true
-    
+
     // MARK: Delegates
     
     weak var delegate: ResizingTokenFieldDelegate?
     weak var customCellDelegate: ResizingTokenFieldCustomCellDelegate? {
         didSet { registerCells() }
     }
-    weak var textFieldDelegate: UITextFieldDelegate? {
+  public weak var textFieldDelegate: UITextFieldDelegate? {
         didSet { textField?.delegate = textFieldDelegate }
     }
     
@@ -208,7 +208,7 @@ public class ResizingTokenField: UIView, UICollectionViewDataSource, UICollectio
     }
     
     /// Use to reload the internal collection view data.
-    func reloadData() {
+  public func reloadData() {
         collectionView.reloadData()
     }
     
@@ -237,11 +237,11 @@ public class ResizingTokenField: UIView, UICollectionViewDataSource, UICollectio
     
     // MARK: - Toggle label
     
-    func showLabel(animated: Bool = false, completion: ((_ finished: Bool) -> Void)? = nil) {
+  public func showLabel(animated: Bool = false, completion: ((_ finished: Bool) -> Void)? = nil) {
         toggleLabelCell(visible: true, animated: animated, completion: completion)
     }
     
-    func hideLabel(animated: Bool = false, completion: ((_ finished: Bool) -> Void)? = nil) {
+  public func hideLabel(animated: Bool = false, completion: ((_ finished: Bool) -> Void)? = nil) {
         toggleLabelCell(visible: false, animated: animated, completion: completion)
     }
     
@@ -273,20 +273,20 @@ public class ResizingTokenField: UIView, UICollectionViewDataSource, UICollectio
     
     // MARK: - Add/remove tokens
     
-    func append(tokens: [ResizingTokenFieldToken], animated: Bool = false, completion: ((_ finished: Bool) -> Void)? = nil) {
+    public func append(tokens: [ResizingTokenFieldToken], animated: Bool = false, completion: ((_ finished: Bool) -> Void)? = nil) {
         let newIndexPaths = viewModel.append(tokens: tokens)
         insertItems(atIndexPaths: newIndexPaths, animated: animated, completion: completion)
     }
     
     /// Remove provided tokens, if they are in the token field.
-    func remove(tokens: [ResizingTokenFieldToken], animated: Bool = false, completion: ((_ finished: Bool) -> Void)? = nil) {
+  public func remove(tokens: [ResizingTokenFieldToken], animated: Bool = false, completion: ((_ finished: Bool) -> Void)? = nil) {
         let removedIndexPaths = viewModel.remove(tokens: tokens)
         removeItems(atIndexPaths: removedIndexPaths, animated: animated, completion: completion)
     }
     
     /// Remove tokens at provided indexes, if they are in the token field.
     /// This function is faster than `remove(tokens:)`.
-    func remove(tokensAtIndexes indexes: IndexSet, animated: Bool = false, completion: ((_ finished: Bool) -> Void)? = nil) {
+  public func remove(tokensAtIndexes indexes: IndexSet, animated: Bool = false, completion: ((_ finished: Bool) -> Void)? = nil) {
         let removedIndexPaths = viewModel.remove(tokensAtIndexes: indexes)
         removeItems(atIndexPaths: removedIndexPaths, animated: animated, completion: completion)
     }

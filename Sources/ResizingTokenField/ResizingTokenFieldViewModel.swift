@@ -9,44 +9,42 @@
 import UIKit
 
 class ResizingTokenFieldViewModel {
-    var tokens: [ResizingTokenFieldToken] = []
-    
+  public var tokens: [ResizingTokenFieldToken] = []
+
     // MARK: - Font
     
     /// Font used by all labels.
-    var font: UIFont = Constants.Font.defaultFont {
+  public var font: UIFont = Constants.Font.defaultFont {
         didSet { defaultItemHeight = ceil(font.lineHeight) + 2 * Constants.Default.defaultTokenTopBottomPadding }
     }
     
     /// Height of items.
-    var defaultItemHeight: CGFloat = ceil(Constants.Font.defaultFont.lineHeight) + 2 * Constants.Default.defaultTokenTopBottomPadding
-    var customItemHeight: CGFloat?
-    var itemHeight: CGFloat { return customItemHeight ?? defaultItemHeight }
-    
+  public var defaultItemHeight: CGFloat = ceil(Constants.Font.defaultFont.lineHeight) + 2 * Constants.Default.defaultTokenTopBottomPadding
+  public var customItemHeight: CGFloat?
+  public var itemHeight: CGFloat { return customItemHeight ?? defaultItemHeight }
+
     // MARK: - Label cell
     
-    var isShowingLabelCell: Bool = true
-    var labelCellText: String?
-    
-    var labelCellIndexPath: IndexPath {
+  public var isShowingLabelCell: Bool = true
+  public var labelCellText: String?
+  public var labelCellIndexPath: IndexPath {
         return IndexPath(item: 0, section: 0)
     }
-    
-    var labelCellSize: CGSize {
+  public var labelCellSize: CGSize {
         return CGSize(width: LabelCell.width(forText: labelCellText, font: font),
                       height: itemHeight)
     }
     
     // MARK: - Text field cell
     
-    var textFieldCellIndexPath: IndexPath {
+  public var textFieldCellIndexPath: IndexPath {
         // The last cell
         return IndexPath(item: numberOfItems - 1, section: 0)
     }
     
     // The smallest allowed size of the text field cell.
-    var textFieldCellMinWidth: CGFloat = Constants.Default.textFieldCellMinWidth
-    var textFieldCellMinSize: CGSize {
+  public var textFieldCellMinWidth: CGFloat = Constants.Default.textFieldCellMinWidth
+  public     public var textFieldCellMinSize: CGSize {
         return CGSize(width: textFieldCellMinWidth, height: itemHeight)
     }
     
@@ -56,7 +54,7 @@ class ResizingTokenFieldViewModel {
     
     /// Marks tokens as collapsed/expanded.
     /// Returns index paths representing newly collapsed/expanded tokens.
-    func toggle(areTokensCollapsed: Bool) -> [IndexPath] {
+  public func toggle(areTokensCollapsed: Bool) -> [IndexPath] {
         guard areTokensCollapsed != self.areTokensCollapsed else { return [] }
         self.areTokensCollapsed = areTokensCollapsed
         return indexPathsForAllTokens
@@ -66,7 +64,7 @@ class ResizingTokenFieldViewModel {
     
     /// Appends tokens to the end of the list.
     /// Returns index paths representing the new tokens.
-    func append(tokens: [ResizingTokenFieldToken]) -> [IndexPath] {
+  public func append(tokens: [ResizingTokenFieldToken]) -> [IndexPath] {
         let start: Int = self.tokens.count
         self.tokens += tokens
         let end: Int = self.tokens.count
@@ -83,7 +81,7 @@ class ResizingTokenFieldViewModel {
     
     /// Finds and removes tokens from the list.
     /// Returns index paths representing removed tokens.
-    func remove(tokens: [ResizingTokenFieldToken]) -> [IndexPath] {
+  public func remove(tokens: [ResizingTokenFieldToken]) -> [IndexPath] {
         var indexesToRemove: IndexSet = IndexSet()
         for token in tokens {
             // Find first occurence of this token.
@@ -100,7 +98,7 @@ class ResizingTokenFieldViewModel {
     
     /// Removes tokens from the list.
     /// Returns index paths representing removed tokens.
-    func remove(tokensAtIndexes indexes: IndexSet) -> [IndexPath] {
+  public func remove(tokensAtIndexes indexes: IndexSet) -> [IndexPath] {
         var removedIndexPaths: [IndexPath] = []
         var removedCount: Int = 0
         for indexToRemove in indexes.sorted() {
@@ -118,7 +116,7 @@ class ResizingTokenFieldViewModel {
     
     /// Removes all tokens from the list.
     /// Returns index paths representing removed tokens.
-    func removeAllTokens() -> [IndexPath] {
+  public func removeAllTokens() -> [IndexPath] {
         let indexPaths: [IndexPath] = areTokensCollapsed ? [] : tokens.enumerated().map({ indexPathForToken(atIndex: $0.0) })
         tokens.removeAll()
         return indexPaths
@@ -126,14 +124,14 @@ class ResizingTokenFieldViewModel {
     
     // MARK: - Selecting tokens
     
-    var tokensToDisplayCount: Int { return areTokensCollapsed ? 0 : tokens.count }
-    
-    var lastTokenCellIndexPath: IndexPath? {
+  public var tokensToDisplayCount: Int { return areTokensCollapsed ? 0 : tokens.count }
+
+  public var lastTokenCellIndexPath: IndexPath? {
         guard tokensToDisplayCount > 0 else { return nil }
         return IndexPath(item: numberOfItems - 2, section: 0)
     }
     
-    var indexPathsForAllTokens: [IndexPath] {
+  public var indexPathsForAllTokens: [IndexPath] {
         var indexPaths: [IndexPath] = []
         for i: Int in 0..<tokens.count {
             indexPaths.append(indexPathForToken(atIndex: i))
@@ -141,7 +139,7 @@ class ResizingTokenFieldViewModel {
         return indexPaths
     }
     
-    func token(atIndexPath indexPath: IndexPath) -> ResizingTokenFieldToken? {
+  public func token(atIndexPath indexPath: IndexPath) -> ResizingTokenFieldToken? {
         let tokenIndex = indexForToken(atIndexPath: indexPath)
         guard tokenIndex >= 0, tokensToDisplayCount > tokenIndex else { return nil }
         return tokens[tokenIndex]
@@ -158,13 +156,13 @@ class ResizingTokenFieldViewModel {
     
     // MARK: - Data source
     
-    var numberOfItems: Int {
+  public var numberOfItems: Int {
         var count = tokensToDisplayCount + 1    // Tokens + text field cell
         if isShowingLabelCell { count += 1 } // Label cell
         return count
     }
     
-    func identifierForCell(atIndexPath indexPath: IndexPath) -> String {
+  public func identifierForCell(atIndexPath indexPath: IndexPath) -> String {
         switch indexPath.item {
         case (isShowingLabelCell ? labelCellIndexPath.item : nil):
             return Constants.Identifier.labelCell
@@ -175,7 +173,7 @@ class ResizingTokenFieldViewModel {
         }
     }
     
-    func defaultTokenCellSize(forToken token: ResizingTokenFieldToken) -> CGSize {
+  public func defaultTokenCellSize(forToken token: ResizingTokenFieldToken) -> CGSize {
         return CGSize(width: DefaultTokenCell.width(forToken: token, font: font),
                       height: itemHeight)
     }
