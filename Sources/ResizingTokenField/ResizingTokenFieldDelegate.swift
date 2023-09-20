@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol ResizingTokenFieldDelegate: AnyObject {
+public protocol ResizingTokenFieldDelegate: AnyObject {
     
     /// Return `true` to allow the token field to collapse tokens.
     /// This is called when token field editing ends.
@@ -84,7 +84,7 @@ extension ResizingTokenFieldDelegate {
 }
 
 /// Implement to provide custom cells for tokens.
-protocol ResizingTokenFieldCustomCellDelegate: AnyObject {
+public protocol ResizingTokenFieldCustomCellDelegate: AnyObject {
     
     /// Returns a custom token cell class to register. Either this or `resizingTokenFieldCustomTokenCellNib(:)` must return a non-nil value.
     /// Required.

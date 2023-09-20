@@ -292,7 +292,7 @@ public class ResizingTokenField: UIView, UICollectionViewDataSource, UICollectio
     }
     
     /// Removes all tokens.
-    func removeAllTokens(animated: Bool = false, completion: ((_ finished: Bool) -> Void)? = nil) {
+    public func removeAllTokens(animated: Bool = false, completion: ((_ finished: Bool) -> Void)? = nil) {
         let removedIndexPaths = viewModel.removeAllTokens()
         removeItems(atIndexPaths: removedIndexPaths, animated: animated, completion: completion)
     }
