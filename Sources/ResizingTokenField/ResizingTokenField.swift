@@ -421,7 +421,7 @@ public class ResizingTokenField: UIView, UICollectionViewDataSource, UICollectio
     textFieldCell.textField.delegate = textFieldDelegate
     textFieldCell.textField.textColor = textFieldTextColor
     textFieldCell.textField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
-    //textFieldCell.textField.addTarget(self, action: #selector(textFieldEditingDidBegin(_:)), for: .editingDidBegin)
+    textFieldCell.textField.addTarget(self, action: #selector(textFieldEditingDidBegin(_:)), for: .editingDidBegin)
     textFieldCell.textField.addTarget(self, action: #selector(textFieldEditingDidEnd(_:)), for: .editingDidEnd)
     textFieldCell.onDeleteBackwardWhenEmpty = { [weak self] in self?.selectLastToken() }
 
